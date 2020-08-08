@@ -1,12 +1,25 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <my-button @myClick="fn">我的button</my-button>
+    <my-input v-model="name" />
+    {{ name }}
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      name: "UI组件--myself",
+    };
+  },
+  methods: {
+    fn() {
+      console.log("fn");
+    },
+  },
+};
+</script>
 
 <style lang="less">
 #app {
