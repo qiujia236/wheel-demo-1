@@ -16,6 +16,8 @@ new Vue({
 }).$mount("#app");
 
 import chai from "chai";
+import spies from "chai-spies";
+chai.use(spies);
 const expect = chai.expect;
 
 // 测试iconProps参数
@@ -84,12 +86,11 @@ const expect = chai.expect;
     propsData: { iconProps: "setting" },
   });
   button.$mount();
-  button.$on("click", function() {
-    console.log(1);
-  });
+  let spy = chai.spy(function() {});
+
+  button.$on("click", spy);
+
   let testButton = button.$el;
-
   testButton.click();
-
-  // expect(order).to.equal("2");
+  expect(spy).to.have.been.called();
 }
