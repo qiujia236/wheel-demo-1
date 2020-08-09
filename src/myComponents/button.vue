@@ -1,15 +1,7 @@
 <template>
-  <button
-    class="my-button"
-    :class="`icon-${iconPosition}`"
-    @click="$emit('click')"
-  >
-    <svg class="icon" v-if="iconProps && !loading">
-      <use :xlink:href="`#${iconProps}`" />
-    </svg>
-    <svg class="icon loading" v-if="loading">
-      <use xlink:href="#loading" />
-    </svg>
+  <button class="my-button" :class="`icon-${iconPosition}`" @click="$emit('click')">
+    <icon v-if="iconProps && !loading" :name="iconProps"></icon>
+    <icon v-if="loading" name="loading" :class="{loading:loading}"></icon>
     <div class="content">
       <slot>提交</slot>
     </div>
@@ -17,14 +9,6 @@
 </template>
 
 <script>
-import down from "../assets/icons/down.svg";
-import download from "../assets/icons/download.svg";
-import left from "../assets/icons/left.svg";
-import right from "../assets/icons/right.svg";
-import setting from "../assets/icons/setting.svg";
-import thumsUp from "../assets/icons/thumsUp.svg";
-import loading from "../assets/icons/loading.svg";
-
 export default {
   name: "my-button",
   props: {
