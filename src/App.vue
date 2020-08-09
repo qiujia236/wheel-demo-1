@@ -1,45 +1,20 @@
 <template>
   <div id="app">
-    <my-button @myClick="fn">我的button</my-button>
-    <my-input v-model="name" />
-    {{ name }}
+    <my-button icon-props="down" icon-position="right">wheel</my-button>
+    <my-button icon-props="download" icon-position="left">wheel</my-button>
+    <my-button icon-props="left" icon-position="left">wheel</my-button>
+    <my-button icon-props="right" icon-position="left">wheel</my-button>
+    <my-button icon-props="setting" icon-position="left">wheel</my-button>
+    <my-button icon-props="thumsUp" icon-position="left">wheel</my-button>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      name: "UI组件--myself",
-    };
-  },
-  methods: {
-    fn() {
-      console.log("fn");
-    },
-  },
-};
+export default {};
 </script>
 
 <style lang="less">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  margin: 20px;
 }
 </style>
