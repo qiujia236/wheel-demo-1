@@ -11,7 +11,6 @@
       :loading="loading2"
       @click="loading2 = !loading2"
       icon-props="download"
-      icon-position="left"
       >download</my-button
     >
     <my-button
