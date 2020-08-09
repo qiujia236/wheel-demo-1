@@ -1,7 +1,14 @@
 <template>
-  <button class="my-button" :class="`icon-${iconPosition}`">
-    <svg class="icon" v-if="iconProps">
+  <button
+    class="my-button"
+    :class="`icon-${iconPosition}`"
+    @click="$emit('click')"
+  >
+    <svg class="icon" v-if="iconProps && !loading">
       <use :xlink:href="`#${iconProps}`" />
+    </svg>
+    <svg class="icon loading" v-if="loading">
+      <use xlink:href="#loading" />
     </svg>
     <div class="content">
       <slot>提交</slot>
@@ -16,10 +23,28 @@ import left from "../assets/icons/left.svg";
 import right from "../assets/icons/right.svg";
 import setting from "../assets/icons/setting.svg";
 import thumsUp from "../assets/icons/thumsUp.svg";
+import loading from "../assets/icons/loading.svg";
 
 export default {
   name: "my-button",
-  props: ["iconProps", "iconPosition"],
+  props: {
+    iconProps: {},
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    iconPosition: {
+      type: String,
+      default: "left",
+      validator(value) {
+        if (value !== "left" && value !== "right") {
+          return false;
+        } else {
+          return true;
+        }
+      },
+    },
+  },
 };
 </script>
 
@@ -46,6 +71,7 @@ export default {
   align-items: center;
   vertical-align: middle;
   margin: 0 5px;
+
   &:hover {
     border-color: var(--border-color-hover);
   }
@@ -74,5 +100,16 @@ export default {
       margin-right: 0;
     }
   }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading {
+  animation: spin 1.5s infinite linear;
 }
 </style>
