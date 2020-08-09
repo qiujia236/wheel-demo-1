@@ -52,6 +52,13 @@
         >left</my-button
       >
       <my-button
+        :loading="loading5"
+        @click="loading5 = !loading5"
+        icon-props="setting"
+        icon-position="left"
+        >setting</my-button
+      >
+      <my-button
         :loading="loading4"
         @click="loading4 = !loading4"
         icon-props="right"

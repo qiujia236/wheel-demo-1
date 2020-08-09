@@ -70,7 +70,7 @@ export default {
   justify-content: center;
   align-items: center;
   vertical-align: middle;
-  margin: 0 5px;
+  margin: 5px 5px;
 
   &:hover {
     border-color: var(--border-color-hover);
