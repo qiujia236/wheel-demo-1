@@ -5,11 +5,11 @@
       <my-col>12</my-col>
     </my-row>
     <my-row gutter="20">
-      <my-col></my-col>
-      <my-col></my-col>
-      <my-col></my-col>
+      <my-col>8</my-col>
+      <my-col>8</my-col>
+      <my-col>8</my-col>
     </my-row>
-    <my-row>
+    <my-row align="right">
       <my-col span="4">4</my-col>
       <my-col span="18" offset="2">20</my-col>
     </my-row>

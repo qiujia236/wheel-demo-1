@@ -33,12 +33,9 @@ export default {
 .col {
   height: 100px;
   width: 50%;
-  //   background-color: wheat;
-  //   border: 1px solid red;
-  //   padding: 0 10px;
   margin-bottom: 5px;
   > .wrapper {
-    border: 1px solid green;
+    border: 1px solid red;
     height: 100px;
   }
 }
