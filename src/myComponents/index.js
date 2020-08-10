@@ -8,3 +8,20 @@ export default function install(_vue) {
     _vue.component(config.default.name, config.default);
   });
 }
+
+// let basePx = 0.041666665;
+// let colWidth = {};
+// for (let i = 1; i <= 24; i++) {
+//   let x = basePx * i * 100;
+//   x = x.toFixed(6);
+//   let str = `.col[data-span="${i}"] {width: ${x}%;}`;
+//   colWidth[i] = str;
+// }
+
+// let colMarginLeft = {};
+// for (let i = 1; i <= 24; i++) {
+//   let x = basePx * i * 100;
+//   x = x.toFixed(6);
+//   let str = `.col[data-offset="${i}"] {margin-left: ${x}%;}`;
+//   colMarginLeft[i] = str;
+// }

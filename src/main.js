@@ -3,6 +3,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import buttonApp from "./myApp/buttonApp.vue";
 import inputApp from "./myApp/inputApp.vue";
+import gridApp from "./myApp/gridApp.vue";
 
 import router from "./router";
 import store from "./store";
@@ -16,7 +17,7 @@ Vue.use(myUI);
 new Vue({
   router,
   store,
-  render: (h) => h(inputApp),
+  render: (h) => h(gridApp),
 }).$mount("#app");
 
 import chai from "chai";
