@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div class="footer">
+    <slot></slot>
+  </div>
 </template>
 
 <script>

@@ -1,17 +1,14 @@
 <template>
-  <div class="content">
+  <div class="header">
     <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  name: "my-content",
+  name: "my-header",
 };
 </script>
 
 <style lang="less" scoped>
-.content {
-  flex-grow: 1;
-}
 </style>

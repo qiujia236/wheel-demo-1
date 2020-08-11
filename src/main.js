@@ -4,6 +4,8 @@ import App from "./App.vue";
 import buttonApp from "./myApp/buttonApp.vue";
 import inputApp from "./myApp/inputApp.vue";
 import gridApp from "./myApp/gridApp.vue";
+import layoutApp from "./myApp/layoutApp.vue";
+import toastApp from "./myApp/toastApp.vue";
 
 import router from "./router";
 import store from "./store";
@@ -17,7 +19,7 @@ Vue.use(myUI);
 new Vue({
   router,
   store,
-  render: (h) => h(gridApp),
+  render: (h) => h(toastApp),
 }).$mount("#app");
 
 import chai from "chai";
