@@ -1,5 +1,5 @@
 <template>
-  <div class="col" :data-span="span" :data-offset="offset" :style="colStyle">
+  <div class="col" :data-span="span" :data-offset="offset" :class="colClass" :style="colStyle">
     <div class="wrapper">
       <slot></slot>
     </div>
@@ -12,6 +12,19 @@ export default {
   props: {
     span: { type: [Number, String] },
     offset: { type: [Number, String] },
+    phone: {
+      type: Object,
+      vaildator(value) {
+        keys = Object.keys(value);
+        let valid = true;
+        keys.forEach((key) => {
+          if (!["span", "offset"].includes(key)) {
+            valid = false;
+          }
+          return valid;
+        });
+      },
+    },
   },
   data() {
     return {
@@ -24,6 +37,17 @@ export default {
         paddingLeft: this.gutter / 2 + "px",
         paddingRight: this.gutter / 2 + "px",
       };
+    },
+    colClass() {
+      let { span, offset, phone } = this;
+      let phoneClass = [];
+      if (phone) {
+        phoneClass = [
+          `col-phone-${phone.span}`,
+          `offset-phone-${phone.offset}`,
+        ];
+      }
+      return phoneClass;
     },
   },
 };
@@ -184,5 +208,153 @@ export default {
 }
 .col[data-offset="24"] {
   margin-left: 99.999996%;
+}
+
+@media (max-width: 576px) {
+  .col-phone-1 {
+    width: 4.166666%;
+  }
+  .col-phone-2 {
+    width: 8.333333%;
+  }
+  .col-phone-3 {
+    width: 12.499999%;
+  }
+  .col-phone-4 {
+    width: 16.666666%;
+  }
+  .col-phone-5 {
+    width: 20.833332%;
+  }
+  .col-phone-6 {
+    width: 24.999999%;
+  }
+  .col-phone-7 {
+    width: 29.166666%;
+  }
+  .col-phone-8 {
+    width: 33.333332%;
+  }
+  .col-phone-9 {
+    width: 37.499998%;
+  }
+  .col-phone-10 {
+    width: 41.666665%;
+  }
+  .col-phone-11 {
+    width: 45.833331%;
+  }
+  .col-phone-12 {
+    width: 49.999998%;
+  }
+  .col-phone-13 {
+    width: 54.166664%;
+  }
+  .col-phone-14 {
+    width: 58.333331%;
+  }
+  .col-phone-15 {
+    width: 62.499997%;
+  }
+  .col-phone-16 {
+    width: 66.666664%;
+  }
+  .col-phone-17 {
+    width: 70.833331%;
+  }
+  .col-phone-18 {
+    width: 74.999997%;
+  }
+  .col-phone-19 {
+    width: 79.166663%;
+  }
+  .col-phone-20 {
+    width: 83.33333%;
+  }
+  .col-phone-21 {
+    width: 87.499996%;
+  }
+  .col-phone-22 {
+    width: 91.666663%;
+  }
+  .col-phone-23 {
+    width: 95.833329%;
+  }
+  .col-phone-24 {
+    width: 99.999996%;
+  }
+
+  .offset-phone-1 {
+    width: 4.166666%;
+  }
+  .offset-phone-2 {
+    width: 8.333333%;
+  }
+  .offset-phone-3 {
+    width: 12.499999%;
+  }
+  .offset-phone-4 {
+    width: 16.666666%;
+  }
+  .offset-phone-5 {
+    width: 20.833332%;
+  }
+  .offset-phone-6 {
+    width: 24.999999%;
+  }
+  .offset-phone-7 {
+    width: 29.166666%;
+  }
+  .offset-phone-8 {
+    width: 33.333332%;
+  }
+  .offset-phone-9 {
+    width: 37.499998%;
+  }
+  .offset-phone-10 {
+    width: 41.666665%;
+  }
+  .offset-phone-11 {
+    width: 45.833331%;
+  }
+  .offset-phone-12 {
+    width: 49.999998%;
+  }
+  .offset-phone-13 {
+    width: 54.166664%;
+  }
+  .offset-phone-14 {
+    width: 58.333331%;
+  }
+  .offset-phone-15 {
+    width: 62.499997%;
+  }
+  .offset-phone-16 {
+    width: 66.666664%;
+  }
+  .offset-phone-17 {
+    width: 70.833331%;
+  }
+  .offset-phone-18 {
+    width: 74.999997%;
+  }
+  .offset-phone-19 {
+    width: 79.166663%;
+  }
+  .offset-phone-20 {
+    width: 83.33333%;
+  }
+  .offset-phone-21 {
+    width: 87.499996%;
+  }
+  .offset-phone-22 {
+    width: 91.666663%;
+  }
+  .offset-phone-23 {
+    width: 95.833329%;
+  }
+  .offset-phone-24 {
+    width: 99.999996%;
+  }
 }
 </style>
