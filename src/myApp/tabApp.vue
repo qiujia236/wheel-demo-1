@@ -25,7 +25,7 @@ export default {
   name: "tabApp",
   data() {
     return {
-      selectedTab: "sports",
+      selectedTab: "test3",
     };
   },
 };

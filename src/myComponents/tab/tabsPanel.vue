@@ -34,7 +34,7 @@ export default {
 .my-tabsPanel {
   padding: 0 2em;
   &.active {
-    background-color: red;
+    font-weight: bold;
   }
 }
 </style>

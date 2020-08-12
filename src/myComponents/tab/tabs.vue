@@ -21,9 +21,11 @@ export default {
       },
     },
   },
+
   provide() {
     return { eventBus: this.eventBus };
   },
+
   data() {
     return {
       eventBus: new Vue(),
@@ -31,7 +33,16 @@ export default {
   },
 
   mounted() {
-    this.eventBus.$emit("update:selected", this.name);
+    this.$children.forEach((vm) => {
+      if (vm.$options.name === "my-tabsHead") {
+        vm.$children.forEach((child) => {
+          let childName = child.$options.name;
+          if (childName === "my-tabsItem" && child.name === this.selected) {
+            this.eventBus.$emit("update:selected", this.selected, child);
+          }
+        });
+      }
+    });
   },
 };
 </script>
