@@ -7,7 +7,7 @@
       @click.stop
       :class="`position-${position}`"
     >
-      <slot name="content"></slot>
+      <slot name="content" :close="close"></slot>
     </div>
     <span ref="triggerWrapper" style="display:inline-block;">
       <slot></slot>
@@ -80,7 +80,6 @@ export default {
         left,
       } = triggerWrapper.getBoundingClientRect();
       const { height: height2 } = contentWrapper.getBoundingClientRect();
-      console.log(top, (height - height2) / 2);
       let positions = {
         top: { top: top + window.scrollY, left: left + window.scrollX },
         bottom: {
@@ -180,7 +179,7 @@ export default {
     }
   }
   &.position-bottom {
-    margin-top: 55px;
+    margin-top: 10%;
     &::before,
     &::after {
       left: 10px;

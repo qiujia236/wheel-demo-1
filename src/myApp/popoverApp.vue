@@ -7,8 +7,9 @@
       <button>点击</button>
     </my-popover>
     <my-popover position="bottom">
-      <template slot="content">
+      <template slot="content" slot-scope="{close}">
         <div>popoverApp contentpopoverApp content</div>
+        <button @click="close">关闭</button>
       </template>
       <button>点击</button>
     </my-popover>
