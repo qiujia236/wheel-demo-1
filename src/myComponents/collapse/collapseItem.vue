@@ -1,6 +1,6 @@
 <template>
   <div class="collapseItem">
-    <div class="title">{{title}}</div>
+    <div class="title" @click="toggle">{{title}}</div>
     <div class="content" v-if="open">
       <slot></slot>
     </div>
@@ -14,11 +14,36 @@ export default {
     title: {
       type: String,
     },
+    name: {
+      type: String,
+      required: true,
+    },
   },
+  inject: ["eventBus"],
   data() {
     return {
       open: false,
     };
+  },
+
+  methods: {
+    toggle() {
+      if (this.open) {
+        this.eventBus.$emit("update:removeSelected", this.name);
+      } else {
+        this.eventBus.$emit("update:addSelected", this.name);
+      }
+    },
+  },
+
+  mounted() {
+    this.eventBus.$on("update:selected", (names) => {
+      if (names.indexOf(this.name) >= 0) {
+        this.open = true;
+      } else {
+        this.open = false;
+      }
+    });
   },
 };
 </script>
@@ -27,7 +52,6 @@ export default {
 .collapseItem {
   .title {
     border: 1px solid #ddd;
-    border-radius: 4px;
     margin-top: -1px;
     margin-left: -1px;
     margin-right: -1px;
@@ -44,8 +68,8 @@ export default {
   }
   &:last-child {
     .title {
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
     }
   }
   .content {
@@ -54,6 +78,7 @@ export default {
     display: flex;
     align-items: center;
     border: 1px solid #ddd;
+    background: red;
   }
 }
 </style>

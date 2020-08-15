@@ -9,6 +9,8 @@ import toastApp from "./myApp/toastApp.vue";
 import tapApp from "./myApp/tabApp.vue";
 import popoverApp from "./myApp/popoverApp.vue";
 import collapseApp from "./myApp/collapseApp.vue";
+import calendarApp from "./myApp/calendarApp.vue";
+import swiperApp from "./myApp/swiperApp.vue";
 
 import router from "./router";
 import store from "./store";
@@ -22,7 +24,7 @@ Vue.use(myUI);
 new Vue({
   router,
   store,
-  render: (h) => h(collapseApp),
+  render: (h) => h(swiperApp),
 }).$mount("#app");
 
 import chai from "chai";
