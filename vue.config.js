@@ -7,7 +7,7 @@ module.exports = {
 
     config.module
       .rule("svg-sprite")
-      .test(/\.svg/)
+      .test(/\.svg$/)
       .include.add(dir)
       .end() //包含icons目录
       .use("svg-sprite-loader")
