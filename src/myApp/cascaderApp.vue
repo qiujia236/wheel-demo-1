@@ -1,6 +1,12 @@
 <template>
   <div class="cascaderApp">
-    <my-cascader :source="source"></my-cascader>
+    {{ selected }}
+    <my-cascader
+      :source="source"
+      :selected="selected"
+      popoverHeight="200px"
+      @updateSelected="updateSelected"
+    ></my-cascader>
   </div>
 </template>
 
@@ -9,6 +15,7 @@ export default {
   name: "cascaderApp",
   data() {
     return {
+      selected: [],
       source: [
         {
           name: "浙江",
@@ -42,6 +49,13 @@ export default {
         },
       ],
     };
+  },
+
+  methods: {
+    updateSelected(newSelected) {
+      this.selected = newSelected;
+      console.log(this.selected);
+    },
   },
 };
 </script>

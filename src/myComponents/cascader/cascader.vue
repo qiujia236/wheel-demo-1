@@ -1,8 +1,15 @@
 <template>
   <div class="cascader">
-    <div class="trigger" @click="popoverVisible = !popoverVisible"></div>
-    <div class="popover" v-if="!popoverVisible">
-      <my-cascaderItems :items="source" />
+    <div class="trigger" @click="popoverVisible = !popoverVisible">
+      {{ result }}
+    </div>
+    <div class="popover-wrapper" v-if="popoverVisible">
+      <my-cascaderItems
+        :items="source"
+        :height="popoverHeight"
+        :selected="selected"
+        @updateSelected="updateSelected"
+      />
     </div>
   </div>
 </template>
@@ -14,31 +21,30 @@ export default {
     source: {
       type: Array,
     },
+    popoverHeight: {
+      type: String,
+    },
+    selected: {
+      type: Array,
+      default: () => [],
+    },
   },
 
   data() {
     return {
       popoverVisible: false,
-      level1Selected: null,
-      level2Selected: null,
     };
   },
 
   computed: {
-    level2Items() {
-      if (this.level1Selected) {
-        return this.level1Selected.children;
-      } else {
-        return [];
-      }
+    result() {
+      return this.selected.map((item) => item.name).join("/");
     },
+  },
 
-    level3Items() {
-      if (this.level2Selected) {
-        return this.level2Selected.children;
-      } else {
-        return [];
-      }
+  methods: {
+    updateSelected(newSelected) {
+      this.$emit("updateSelected", newSelected);
     },
   },
 };
@@ -47,9 +53,25 @@ export default {
 <style lang="scss" scoped>
 @import "../var";
 .cascader {
+  position: relative;
   .trigger {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 1em;
+    height: 32px;
+    min-width: 10em;
+    border: 1px solid $border-color;
+    border-radius: 2px;
   }
-  .popover {
+
+  .popover-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    .label {
+      white-space: nowrap;
+      @include box-shadow;
+    }
   }
 }
 </style>

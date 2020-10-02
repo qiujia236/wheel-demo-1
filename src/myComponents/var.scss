@@ -4,3 +4,6 @@ $border-color-hover: #666;
 $font-size: 14px;
 $box-shadow-color: rgba(0, 0, 0, 0.5);
 $red: red;
+@mixin box-shadow {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
