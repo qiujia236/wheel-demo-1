@@ -12,6 +12,9 @@ import collapseApp from "./myApp/collapseApp.vue";
 import calendarApp from "./myApp/calendarApp.vue";
 import swiperApp from "./myApp/swiperApp.vue";
 import treeApp from "./myApp/treeApp.vue";
+import virtualApp from "./myApp/virtualApp.vue";
+import modalApp from "./myApp/modalApp.vue";
+import cascaderApp from "./myApp/cascaderApp.vue";
 
 import router from "./router";
 import store from "./store";
@@ -25,7 +28,7 @@ Vue.use(myUI);
 new Vue({
   router,
   store,
-  render: (h) => h(treeApp),
+  render: (h) => h(cascaderApp),
 }).$mount("#app");
 
 import chai from "chai";

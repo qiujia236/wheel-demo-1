@@ -5,11 +5,11 @@
       :value="value"
       :disabled="disabled"
       :readonly="readonly"
-      @input="$emit('input',$event.target.value)"
+      @input="$emit('input', $event.target.value)"
     />
     <template v-if="error">
       <icon name="error" class="icon-error"></icon>
-      <span class="error-message">{{error}}</span>
+      <span class="error-message">{{ error }}</span>
     </template>
   </div>
 </template>
