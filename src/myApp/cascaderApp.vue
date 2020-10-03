@@ -1,61 +1,60 @@
 <template>
   <div class="cascaderApp">
-    {{ selected }}
     <my-cascader
       :source="source"
-      :selected="selected"
-      popoverHeight="200px"
-      @updateSelected="updateSelected"
+      :selected.sync="selected"
+      popoverHeight="300px"
+      :loadData="loadData"
+      @update:selected="xxx"
     ></my-cascader>
   </div>
 </template>
 
 <script>
+import db from "../myComponents/cascader/db.js";
+
+function ajax(parentId = 0) {
+  return new Promise((success, fail) => {
+    let result = db.filter((item) => item.parent_id === parentId);
+    success(result);
+  });
+}
+
 export default {
   name: "cascaderApp",
   data() {
     return {
       selected: [],
-      source: [
-        {
-          name: "浙江",
-          children: [
-            {
-              name: "杭州",
-              children: [{ name: "上城" }, { name: "下城" }, { name: "江干" }],
-            },
-            {
-              name: "嘉兴",
-              children: [
-                { name: "南湖区" },
-                { name: "秀洲" },
-                { name: "嘉善" },
-              ],
-            },
-          ],
-        },
-        {
-          name: "湖北",
-          children: [
-            {
-              name: "武汉",
-              children: [
-                { name: "汉口" },
-                { name: "汉阳" },
-                { name: "东西湖" },
-              ],
-            },
-          ],
-        },
-      ],
+      source: [],
     };
   },
 
   methods: {
-    updateSelected(newSelected) {
-      this.selected = newSelected;
-      console.log(this.selected);
+    loadData(node, fn) {
+      let { id } = node;
+
+      ajax(id).then((result) => {
+        console.log(result);
+        fn(result);
+      });
     },
+
+    xxx(newSelected) {
+      // this.selected = newSelected;
+      ajax(newSelected[0].id).then((result) => {
+        let lastLevelSelected = this.source.filter(
+          (item) => item.id === this.selected[0].id
+        )[0];
+        this.$set(lastLevelSelected, "children", result);
+        console.log(lastLevelSelected);
+        // this.selected = [lastLevelSelected];
+      });
+    },
+  },
+
+  async created() {
+    let result = await ajax(0);
+    this.source = result;
   },
 };
 </script>

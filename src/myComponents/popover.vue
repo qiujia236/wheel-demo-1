@@ -34,6 +34,11 @@ export default {
       },
     },
   },
+
+  data() {
+    return { visible: false };
+  },
+
   mounted() {
     if (this.trigger === "click") {
       this.$refs.popover.addEventListener("click", this.onClick);
@@ -42,7 +47,8 @@ export default {
       this.$refs.popover.addEventListener("mouseleave", this.close);
     }
   },
-  destroyed() {
+
+  beforeDestroyed() {
     if (this.trigger === "click") {
       this.$refs.popover.removeEventListener("click", this.onClick);
     } else {
@@ -50,9 +56,7 @@ export default {
       this.$refs.popover.removeEventListener("mouseleave", this.close);
     }
   },
-  data() {
-    return { visible: false };
-  },
+
   computed: {
     openEvent() {
       if (this.trigger === "click") {
@@ -69,6 +73,7 @@ export default {
       }
     },
   },
+
   methods: {
     positionContent() {
       const { contentWrapper, triggerWrapper } = this.$refs;

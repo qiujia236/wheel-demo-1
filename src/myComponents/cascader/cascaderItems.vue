@@ -1,5 +1,5 @@
 <template>
-  <div class="cascaderItem" :style="{ height: height }">
+  <div class="cascaderItem" :style="{ height: height }" v-if="items.length > 0">
     <div class="left">
       <div
         class="label"
@@ -79,13 +79,19 @@ export default {
   justify-content: flex-start;
   height: 100%;
   .left {
+    overflow: auto;
     height: 100%;
     padding: 0.3em 0;
+    border: 1px solid lighten($border-color, 10%);
   }
+
   .right {
     height: 100%;
-    border-left: 1px solid lighten($border-color, 10%);
+    .left {
+      border-left: none;
+    }
   }
+
   .label {
     padding: 0.3em 1em;
     display: flex;
