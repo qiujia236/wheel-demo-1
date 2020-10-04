@@ -1,5 +1,5 @@
 <template>
-  <div class="nav">
+  <div class="nav" :class="{ vertical }">
     <slot></slot>
   </div>
 </template>
@@ -8,7 +8,7 @@
 export default {
   name: "my-nav",
   provide() {
-    return { root: this };
+    return { root: this, vertical: this.vertical };
   },
 
   props: {
@@ -17,6 +17,10 @@ export default {
       default: () => [],
     },
     multiple: {
+      type: Boolean,
+      default: false,
+    },
+    vertical: {
       type: Boolean,
       default: false,
     },
@@ -74,8 +78,14 @@ export default {
 
 <style lang="scss" scoped>
 .nav {
-  display: flex;
+  display: inline-flex;
   border-bottom: 1px solid #95a5a6;
   cursor: pointer;
+  &.vertical {
+    flex-direction: column;
+    width: 200px;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
 }
 </style>

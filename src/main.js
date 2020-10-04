@@ -16,6 +16,7 @@ import virtualApp from "./myApp/virtualApp.vue";
 import modalApp from "./myApp/modalApp.vue";
 import cascaderApp from "./myApp/cascaderApp.vue";
 import navApp from "./myApp/navApp.vue";
+import pagerApp from "./myApp/pagerApp.vue";
 
 import router from "./router";
 import store from "./store";
@@ -29,7 +30,7 @@ Vue.use(myUI);
 new Vue({
   router,
   store,
-  render: (h) => h(navApp),
+  render: (h) => h(pagerApp),
 }).$mount("#app");
 
 import chai from "chai";

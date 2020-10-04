@@ -1,14 +1,28 @@
 <template>
-  <div class="subNav" :class="{ active }" v-ClickOutside="close">
+  <div class="subNav" :class="{ active }" v-click-outside="close">
     <span class="label" @click="onClick">
       <slot name="title"> </slot>
-      <span class="icon" :class="{ open }">
+      <span class="icon" :class="{ open, vertical }">
         <icon name="right"></icon>
       </span>
     </span>
-    <div class="popover" v-show="open">
-      <slot></slot>
-    </div>
+    <template v-if="vertical">
+      <transition
+        @enter="enter"
+        @leave="leave"
+        @after-leave="afterLeave"
+        @after-enter="afterEnter"
+      >
+        <div class="popover" :class="{ vertical }" v-show="open">
+          <slot></slot>
+        </div>
+      </transition>
+    </template>
+    <template v-else>
+      <div class="popover" v-show="open">
+        <slot></slot>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -18,7 +32,7 @@ import ClickOutside from "../clickOutside.js";
 export default {
   name: "my-subNav",
   directives: { ClickOutside },
-  inject: ["root"],
+  inject: ["root", "vertical"],
 
   props: {
     name: {
@@ -38,6 +52,34 @@ export default {
   },
 
   methods: {
+    enter(el, done) {
+      let { height } = el.getBoundingClientRect();
+      el.style.height = 0;
+      el.getBoundingClientRect();
+      el.style.height = `${height}px`;
+      el.addEventListener("transitionend", () => {
+        done();
+      });
+    },
+
+    afterEnter(el) {
+      el.style.height = "auto";
+    },
+
+    leave(el, done) {
+      let { height } = el.getBoundingClientRect();
+      el.style.height = `${height}px`;
+      el.getBoundingClientRect();
+      el.style.height = 0;
+      el.addEventListener("transitionend", () => {
+        done();
+      });
+    },
+
+    afterLeave(el) {
+      el.style.height = "auto";
+    },
+
     onClick() {
       this.open = !this.open;
     },
@@ -47,7 +89,6 @@ export default {
     },
 
     updateNamePath() {
-      this.active = true;
       this.root.namePath.unshift(this.name);
       if (this.$parent.updateNamePath) {
         this.$parent.updateNamePath();
@@ -60,6 +101,7 @@ export default {
 <style lang="scss" scoped>
 .subNav {
   position: relative;
+
   &.active {
     &::after {
       content: "";
@@ -88,6 +130,13 @@ export default {
     box-shadow: 0 0 3px #95a5a6;
     border-radius: 4px;
     font-size: 13px;
+    &.vertical {
+      position: static;
+      border-radius: 0;
+      box-shadow: none;
+      transition: height 250ms;
+      overflow: hidden;
+    }
   }
 }
 
@@ -95,7 +144,7 @@ export default {
   .popover {
     top: 0;
     left: 100%;
-    margin-left: 3px;
+    margin-left: 8px;
   }
   .label {
     display: flex;
@@ -103,6 +152,9 @@ export default {
     justify-content: space-between;
     .icon {
       transition: transform 0.5s;
+      &.vertical {
+        transform: rotate(90deg);
+      }
       &.open {
         transform: rotate(180deg);
       }

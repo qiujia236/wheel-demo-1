@@ -50,6 +50,10 @@ export default {
       width: 100%;
     }
   }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 .subNav .navItem {

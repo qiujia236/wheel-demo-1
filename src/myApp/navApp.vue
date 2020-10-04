@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="navApp">
     <my-nav :selected.sync="selected">
       <my-navItem name="home">首页</my-navItem>
       <my-subNav name="about">
@@ -29,4 +29,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#navApp {
+  margin: 20px;
+}
+</style>
