@@ -14,6 +14,7 @@ import thumsUp from "../assets/icons/thumsUp.svg";
 import loading from "../assets/icons/loading.svg";
 import error from "../assets/icons/error.svg";
 import success from "../assets/icons/success.svg";
+import search from "../assets/icons/search.svg";
 
 export default {
   name: "icon",

@@ -1,10 +1,17 @@
 <template>
-  <div id="pagerApp"><my-pager :totalPage="10" :currentPage="2" /></div>
+  <div id="pagerApp">
+    <my-pager :totalPage="10" :currentPage.sync="currentPage" />
+  </div>
 </template>
 
 <script>
 export default {
   name: "pagerApp",
+  data() {
+    return {
+      currentPage: 2,
+    };
+  },
 };
 </script>
 

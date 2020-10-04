@@ -1,28 +1,32 @@
 <template>
   <div class="pager">
     <div
+      class="prev-page"
+      :class="{ disabled: currentPage === 1 }"
+      @click="onClickPage(currentPage - 1)"
+    >
+      <icon name="left" />
+    </div>
+    <div
       class="pager-item"
-      :class="{ active: page === currentPage }"
       v-for="(page, index) in pages"
       :key="index"
+      :class="{ active: page === currentPage }"
+      @click="onClickPage(page)"
     >
-      {{ page }}
+      <span>{{ page }}</span>
+    </div>
+    <div
+      class="next-page"
+      :class="{ disabled: currentPage === totalPage }"
+      @click="onClickPage(currentPage + 1)"
+    >
+      <icon name="right" />
     </div>
   </div>
 </template>
 
 <script>
-function unique(array) {
-  // return [...new Set(array)]
-  // array = [1 1 2 3 4 5 20]
-  const object = {};
-  array.map((number) => {
-    object[number] = true;
-  });
-  const arr = Object.keys(object).map((s) => parseInt(s, 10));
-  return arr;
-}
-
 export default {
   name: "my-pager",
   props: {
@@ -43,7 +47,7 @@ export default {
   computed: {
     pages() {
       // 依赖了 totalPage 和 currentPage
-      return unique(
+      return this.unique(
         [
           1,
           this.totalPage,
@@ -66,9 +70,20 @@ export default {
   },
 
   methods: {
+    unique(array) {
+      const object = {};
+      array.map((number) => {
+        object[number] = true;
+      });
+      const arr = Object.keys(object).map((s) => parseInt(s, 10));
+      return arr;
+    },
+
     onClickPage(n) {
-      if (n >= 1 && n <= this.totalPage) {
-        this.$emit("update:currentPage", n);
+      if (n !== this.currentPage && n !== "...") {
+        if (n >= 1 && n <= this.totalPage) {
+          this.$emit("update:currentPage", n);
+        }
       }
     },
   },
@@ -76,20 +91,43 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$min-width: 25px;
+$height: 25px;
+$grey: #ecf0f1;
+
 .pager {
   display: flex;
+  align-items: center;
   cursor: default;
+
   .pager-item {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    height: 20px;
-    min-width: 20px;
+    height: $height;
+    min-width: $min-width;
     border: 1px solid #bdc3c7;
-    border-radius: 3px;
+    border-radius: 4px;
     padding: 0 4px;
     margin: 0 2px;
   }
+  .prev-page,
+  .next-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: $height;
+    min-width: $min-width;
+    background-color: $grey;
+    border-radius: 4px;
+    margin: 0 2px;
+  }
+  .disabled {
+    svg {
+      fill: darken($grey, 30%);
+    }
+  }
+
   .active,
   .active:hover {
     background-color: #3498db;
