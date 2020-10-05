@@ -54,7 +54,7 @@ export default {
   display: none;
   position: absolute;
   left: 0;
-  top: 38px;
+  top: 39px;
   width: 100%;
   background-color: #fff;
   box-shadow: 0 0 10px #dddddd;

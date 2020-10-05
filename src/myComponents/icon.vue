@@ -1,14 +1,15 @@
 <template>
-  <svg class="icon">
+  <svg class="icon" @click="$emit('click', $event)">
     <use :xlink:href="`#${name}`" />
   </svg>
 </template>
 
 <script>
+import up from "../assets/icons/up.svg";
 import down from "../assets/icons/down.svg";
-import download from "../assets/icons/download.svg";
 import left from "../assets/icons/left.svg";
 import right from "../assets/icons/right.svg";
+import download from "../assets/icons/download.svg";
 import setting from "../assets/icons/setting.svg";
 import thumsUp from "../assets/icons/thumsUp.svg";
 import loading from "../assets/icons/loading.svg";
