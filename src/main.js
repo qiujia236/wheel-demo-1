@@ -17,7 +17,11 @@ import modalApp from "./myApp/modalApp.vue";
 import cascaderApp from "./myApp/cascaderApp.vue";
 import navApp from "./myApp/navApp.vue";
 import selectorApp from "./myApp/selectorApp.vue";
-import pagerApp from "./myApp/pagerApp.vue";
+import tableAndPagerApp from "./myApp/tableAndPagerApp.vue";
+import uploadApp from "./myApp/uploadApp.vue";
+import stickyApp from "./myApp/stickyApp.vue";
+import dialogApp from "./myApp/dialogApp.vue";
+import switchApp from "./myApp/switchApp.vue";
 
 import router from "./router";
 import store from "./store";
@@ -31,7 +35,7 @@ Vue.use(myUI);
 new Vue({
   router,
   store,
-  render: (h) => h(pagerApp),
+  render: (h) => h(switchApp),
 }).$mount("#app");
 
 import chai from "chai";
@@ -105,7 +109,7 @@ const expect = chai.expect;
     propsData: { iconProps: "setting" },
   });
   button.$mount();
-  let spy = chai.spy(function() {});
+  let spy = chai.spy(function () { });
 
   button.$on("click", spy);
 
