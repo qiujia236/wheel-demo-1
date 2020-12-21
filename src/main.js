@@ -24,6 +24,7 @@ import switchApp from "./myApp/switchApp.vue";
 import radioApp from "./myApp/radioApp.vue";
 import checkboxApp from "./myApp/checkboxApp.vue";
 import formApp from "./myApp/formApp.vue";
+import uploaderApp from "./myApp/uploaderApp.vue";
 
 import router from "./router";
 import store from "./store";
@@ -37,7 +38,7 @@ Vue.use(myUI);
 new Vue({
   router,
   store,
-  render: (h) => h(formApp),
+  render: (h) => h(uploaderApp),
 }).$mount("#app");
 
 import chai from "chai";

@@ -1,7 +1,11 @@
 <template>
-  <button class="my-button" :class="`icon-${iconPosition}`" @click="$emit('click')">
+  <button
+    class="my-button"
+    :class="`icon-${iconPosition}`"
+    @click="$emit('click')"
+  >
     <icon v-if="iconProps && !loading" :name="iconProps"></icon>
-    <icon v-if="loading" name="loading" :class="{loading:loading}"></icon>
+    <icon v-if="loading" name="loading" :class="{ loading: loading }"></icon>
     <div class="content">
       <slot>提交</slot>
     </div>
@@ -32,17 +36,7 @@ export default {
 };
 </script>
 
-<style lang="less">
-:root {
-  --button-height: 32px;
-  --font-size: 14px;
-  --button-bg: white;
-  --button-active-bg: #eee;
-  --boreder-radius: 4px;
-  --color: #333;
-  --border-color: #999;
-  --border-color-hover: #666;
-}
+<style lang="less" scoped>
 .my-button {
   font-size: var(--font-size);
   height: var(--button-height);
