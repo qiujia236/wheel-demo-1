@@ -13,7 +13,6 @@ import calendarApp from "./myApp/calendarApp.vue";
 import swiperApp from "./myApp/swiperApp.vue";
 import treeApp from "./myApp/treeApp.vue";
 import virtualApp from "./myApp/virtualApp.vue";
-import modalApp from "./myApp/modalApp.vue";
 import cascaderApp from "./myApp/cascaderApp.vue";
 import navApp from "./myApp/navApp.vue";
 import selectorApp from "./myApp/selectorApp.vue";
@@ -22,6 +21,9 @@ import uploadApp from "./myApp/uploadApp.vue";
 import stickyApp from "./myApp/stickyApp.vue";
 import dialogApp from "./myApp/dialogApp.vue";
 import switchApp from "./myApp/switchApp.vue";
+import radioApp from "./myApp/radioApp.vue";
+import checkboxApp from "./myApp/checkboxApp.vue";
+import formApp from "./myApp/formApp.vue";
 
 import router from "./router";
 import store from "./store";
@@ -35,7 +37,7 @@ Vue.use(myUI);
 new Vue({
   router,
   store,
-  render: (h) => h(switchApp),
+  render: (h) => h(formApp),
 }).$mount("#app");
 
 import chai from "chai";

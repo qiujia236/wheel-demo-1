@@ -16,6 +16,7 @@ import loading from "../assets/icons/loading.svg";
 import error from "../assets/icons/error.svg";
 import success from "../assets/icons/success.svg";
 import search from "../assets/icons/search.svg";
+import circle from "../assets/icons/circle.svg";
 
 export default {
   name: "icon",

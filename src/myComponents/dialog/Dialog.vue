@@ -1,19 +1,19 @@
 <template>
   <transition name="dialog-fade">
-    <div class="hm-dialog-wrapper" v-show="visible" @click.self="handleClose">
-      <div class="hm-dialog" :style="{ width, marginTop }">
-        <div class="hm-dialog_header">
+    <div class="wb-dialog-wrapper" v-show="visible" @click.self="handleClose">
+      <div class="wb-dialog" :style="{ width, marginTop }">
+        <div class="wb-dialog_header">
           <slot name="title">
-            <span class="hm-dialog_title">{{ title }}</span>
+            <span class="wb-dialog_title">{{ title }}</span>
           </slot>
-          <button class="hm-dialog-headerbtn">
+          <button class="wb-dialog-headerbtn">
             <icon name="error" @click="handleClose" />
           </button>
         </div>
-        <div class="hm-dialog_body">
+        <div class="wb-dialog_body">
           <slot></slot>
         </div>
-        <div class="hm-dialog_footer" v-if="$slots.footer">
+        <div class="wb-dialog_footer" v-if="$slots.footer">
           <slot name="footer"> </slot>
         </div>
       </div>
@@ -52,7 +52,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.hm-dialog-wrapper {
+.wb-dialog-wrapper {
   position: fixed;
   top: 0;
   right: 0;
@@ -63,7 +63,7 @@ export default {
   z-index: 2001;
   background-color: rgba(0, 0, 0, 0.5);
 
-  .hm-dialog {
+  .wb-dialog {
     position: relative;
     margin: 15vh auto 50px;
     background-color: #fff;
@@ -72,14 +72,14 @@ export default {
     box-sizing: border-box;
     width: 30%;
 
-    .hm-dialog_header {
+    .wb-dialog_header {
       padding: 20px 20px 10px;
-      .hm-dialog_title {
+      .wb-dialog_title {
         line-height: 24px;
         font-size: 18px;
         color: #303133;
       }
-      .hm-dialog-headerbtn {
+      .wb-dialog-headerbtn {
         position: absolute;
         top: 24px;
         right: 20px;
@@ -95,14 +95,14 @@ export default {
       }
     }
 
-    .hm-dialog_body {
+    .wb-dialog_body {
       padding: 30px 20px;
       color: #606266;
       font-size: 14px;
       word-break: break-all;
     }
 
-    .hm-dialog_footer {
+    .wb-dialog_footer {
       padding: 10 20px 20px;
       text-align: right;
       box-sizing: border-box;
