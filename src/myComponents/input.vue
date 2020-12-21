@@ -4,6 +4,7 @@
       type="text"
       :value="value"
       :disabled="disabled"
+      :placeholder="placeholder"
       :readonly="readonly"
       @input="$emit('input', $event.target.value)"
     />
@@ -20,7 +21,11 @@ export default {
   props: {
     value: {
       type: String,
-      default: "正常状态",
+      default: "",
+    },
+    placeholder: {
+      type: String,
+      default: "",
     },
     disabled: {
       type: Boolean,

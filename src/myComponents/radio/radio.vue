@@ -41,8 +41,8 @@ export default {
       },
       set(value) {
         this.isGroup
-          ? this.RadioGroup.$emit("update:value", value)
-          : this.$emit("update:value", value);
+          ? this.RadioGroup.$emit("input", value)
+          : this.$emit("input", value);
       },
     },
     isGroup() {

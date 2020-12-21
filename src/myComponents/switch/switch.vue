@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     handleClick() {
-      this.$emit("update:value", !this.value);
+      this.$emit("input", !this.value);
       this.$nextTick(this.setColor);
       this.$refs.input.checked = this.value;
     },

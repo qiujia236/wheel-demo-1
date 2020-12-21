@@ -50,9 +50,9 @@ export default {
           let index = handleArray.indexOf(this.label);
           handleArray.splice(index, 1);
         }
-        this.CheckboxGroup.$emit("update:value", handleArray);
+        this.CheckboxGroup.$emit("input", handleArray);
       } else {
-        this.$emit("update:value", !this.value);
+        this.$emit("input", !this.value);
       }
     },
   },
