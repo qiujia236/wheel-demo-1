@@ -38,12 +38,12 @@ export default {
 
 <style lang="less" scoped>
 .my-button {
-  font-size: var(--font-size);
-  height: var(--button-height);
+  font-size: 14px;
+  height: 32px;
   padding: 0 0.7em;
-  border-radius: var(--boreder-radius);
-  border: 1px solid var(--border-color);
-  background: var(--button-bg);
+  border-radius: 4px;
+  border: 1px solid #7f8c8d;
+  background: #ecf0f1;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -51,10 +51,10 @@ export default {
   margin: 5px 5px;
 
   &:hover {
-    border-color: var(--border-color-hover);
+    border-color: #ecf0f1;
   }
   &:active {
-    background-color: var(--button-active-bg);
+    background-color: #bdc3c7;
   }
   &:focus {
     outline: none;
