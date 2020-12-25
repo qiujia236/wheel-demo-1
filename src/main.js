@@ -30,10 +30,10 @@ import uploaderApp from "./myApp/uploaderApp.vue";
 import myUI from "./myComponents/index.js";
 
 import './assets/css/reset.css'
+Vue.use(myUI);
 
 Vue.config.productionTip = false;
 
-Vue.use(myUI);
 
 new Vue({
   render: (h) => h(virtualApp),

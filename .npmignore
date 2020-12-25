@@ -1,0 +1,15 @@
+public/
+src/
+docs/
+test/
+.vscode/
+
+yarn-error.log
+
+vue.config.js
+babel.config.js
+.browserslistrc
+.eslintrc.js
+.gitignore
+README.md
+*.map

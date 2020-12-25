@@ -1,10 +1,12 @@
 {
-  "name": "wheel-demo-1",
-  "version": "0.1.0",
-  "private": true,
+  "name": "smart-ui",
+  "version": "0.0.1",
+  "private": false,
+  "main": "dist/smartUI.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "lib": "vue-cli-service build --target lib --name smartUI src/myComponents/index.js",
     "lint": "vue-cli-service lint",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"

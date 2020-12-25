@@ -6,7 +6,7 @@
       :remain="10"
       :items="items"
       :preRender="4"
-      :variable="true"
+      :variable="false"
     >
       <my-item slot-scope="{ item }" :item="item"></my-item>
     </my-virtualList>
@@ -14,16 +14,22 @@
 </template>
 
 <script>
+// import Mock from "mockjs";
 // Mock.Random.sentence(5, 50)
-import Mock from "mockjs";
+import virtualList from "../myComponents/virtualList/virtualList.vue";
+import item from "../myComponents/virtualList/item.vue";
 
 let items = [];
-for (let i = 0; i < 120; i++) {
+for (let i = 0; i < 100; i++) {
   items.push({ id: i, value: `item-${i}` });
 }
 
 export default {
   name: "virtualApp",
+  components: {
+    "my-virtualList": virtualList,
+    "my-item": item,
+  },
   data() {
     return { items };
   },

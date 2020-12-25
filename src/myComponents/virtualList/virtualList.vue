@@ -1,6 +1,7 @@
 <template>
   <!-- 可视区域 -->
   <div class="viewport" ref="viewport" @scroll="scrollFn">
+    {{ 111 }}
     <!-- 自己做一个滚动条 -->
     <div class="scroll-bar" ref="scrollBar"></div>
     <!-- 真实渲染的高度 -->
@@ -28,7 +29,7 @@ export default {
   name: "my-virtualList",
   props: {
     size: { type: Number, required: true }, //当前每一项的高度
-    remain: { type: Number, required: true }, // 可见多少个
+    remain: { type: Number, defult: 10 }, // 可见多少个
     items: { type: Array, required: true }, // 需要渲染的数据
     preRender: { type: Number, defult: 3 },
     variable: { type: Boolean, default: false },
@@ -60,7 +61,9 @@ export default {
   },
 
   mounted() {
+    // 渲染数据视图的高度
     this.$refs.viewport.style.height = this.size * this.remain + "px";
+    // 滚动条的高度
     this.$refs.scrollBar.style.height = this.size * this.items.length + "px";
     this.cacheList();
   },
@@ -162,7 +165,7 @@ export default {
 .viewport {
   overflow-y: scroll;
   position: relative;
-  border: 1px solid blanchedalmond;
+  /* border: 1px solid blanchedalmond; */
 }
 
 .scroll-list {
