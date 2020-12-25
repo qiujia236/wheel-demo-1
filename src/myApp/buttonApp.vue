@@ -3,6 +3,34 @@
     <my-button
       :loading="loading1"
       @click="loading1 = !loading1"
+      icon-props="search"
+      icon-position="right"
+      >search</my-button
+    >
+    <my-button
+      :loading="loading1"
+      @click="loading1 = !loading1"
+      icon-props="circle"
+      icon-position="right"
+      >circle</my-button
+    >
+    <my-button
+      :loading="loading1"
+      @click="loading1 = !loading1"
+      icon-props="error"
+      icon-position="right"
+      >error</my-button
+    >
+    <my-button
+      :loading="loading1"
+      @click="loading1 = !loading1"
+      icon-props="up"
+      icon-position="right"
+      >up</my-button
+    >
+    <my-button
+      :loading="loading1"
+      @click="loading1 = !loading1"
       icon-props="down"
       icon-position="right"
       >down</my-button

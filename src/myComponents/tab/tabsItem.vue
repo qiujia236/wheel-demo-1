@@ -40,14 +40,14 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .my-tabsItem {
   height: 100%;
   padding: 0 2em;
   display: inline-flex;
   align-items: center;
   &.active {
-    color: blue;
+    color: #eb4d4b;
     font-weight: bold;
   }
   &.disabled {

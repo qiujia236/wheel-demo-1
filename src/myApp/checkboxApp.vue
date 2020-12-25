@@ -1,7 +1,7 @@
 <template>
   <div>
-    <my-checkbox :value.sync="active">是否选中</my-checkbox>
-    <my-checkboxGroup :value.sync="hobby">
+    <my-checkbox v-model="active">是否选中</my-checkbox>
+    <my-checkboxGroup v-model="hobby">
       <my-checkbox label="吃饭"></my-checkbox>
       <my-checkbox label="看电影"></my-checkbox>
       <my-checkbox label="读书"></my-checkbox>

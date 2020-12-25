@@ -2,14 +2,13 @@
   <div class="popover" ref="popover">
     <div
       ref="contentWrapper"
-      class="content-wrapper"
+      class="content-wrapper ice-popover"
       v-if="visible"
-      @click.stop
-      :class="`position-${position}`"
+      :class="{ [`position-${position}`]: true }"
     >
       <slot name="content" :close="close"></slot>
     </div>
-    <span ref="triggerWrapper" style="display:inline-block;">
+    <span ref="triggerWrapper" style="display: inline-block">
       <slot></slot>
     </span>
   </div>
@@ -18,10 +17,13 @@
 <script>
 export default {
   name: "my-popover",
+  data() {
+    return { visible: false };
+  },
   props: {
     position: {
       type: String,
-      default: top,
+      default: "top",
       validator(value) {
         return ["top", "bottom", "left", "right"].indexOf(value) >= 0;
       },
@@ -35,10 +37,6 @@ export default {
     },
   },
 
-  data() {
-    return { visible: false };
-  },
-
   mounted() {
     if (this.trigger === "click") {
       this.$refs.popover.addEventListener("click", this.onClick);
@@ -46,32 +44,6 @@ export default {
       this.$refs.popover.addEventListener("mouseenter", this.open);
       this.$refs.popover.addEventListener("mouseleave", this.close);
     }
-  },
-
-  beforeDestroyed() {
-    if (this.trigger === "click") {
-      this.$refs.popover.removeEventListener("click", this.onClick);
-    } else {
-      this.$refs.popover.removeEventListener("mouseenter", this.open);
-      this.$refs.popover.removeEventListener("mouseleave", this.close);
-    }
-  },
-
-  computed: {
-    openEvent() {
-      if (this.trigger === "click") {
-        return "click";
-      } else {
-        return "mouseenter";
-      }
-    },
-    closeEvent() {
-      if (this.trigger === "click") {
-        return "click";
-      } else {
-        return "mouseleave";
-      }
-    },
   },
 
   methods: {
@@ -84,11 +56,15 @@ export default {
         top,
         left,
       } = triggerWrapper.getBoundingClientRect();
+
       const { height: height2 } = contentWrapper.getBoundingClientRect();
-      let positions = {
-        top: { top: top + window.scrollY, left: left + window.scrollX },
+      const positions = {
+        top: {
+          top: top + window.scrollY,
+          left: left + window.scrollX,
+        },
         bottom: {
-          top: top + height / 2 + window.scrollY,
+          top: top + height + window.scrollY,
           left: left + window.scrollX,
         },
         left: {
@@ -96,12 +72,13 @@ export default {
           left: left + window.scrollX,
         },
         right: {
-          top: top + window.scrollY + 2 * height,
-          left: left + window.scrollX + width,
+          top: top + window.scrollY + (height - height2) / 2,
+          left: left + width + window.scrollX,
         },
       };
-      contentWrapper.style.left = positions[this.position].left + "px";
+
       contentWrapper.style.top = positions[this.position].top + "px";
+      contentWrapper.style.left = positions[this.position].left + "px";
     },
 
     onClickDocument(e) {
@@ -113,12 +90,15 @@ export default {
         return;
       }
 
-      this.close();
-    },
+      if (
+        this.$refs.contentWrapper &&
+        (this.$refs.contentWrapper === e.target ||
+          this.$refs.contentWrapper.contains(e.target))
+      ) {
+        return;
+      }
 
-    close() {
-      this.visible = false;
-      document.removeEventListener("click", this.onClickDocument);
+      this.close();
     },
 
     open() {
@@ -129,44 +109,59 @@ export default {
       });
     },
 
+    close() {
+      this.visible = false;
+      document.removeEventListener("click", this.onClickDocument);
+    },
+
     onClick(event) {
       if (this.$refs.triggerWrapper.contains(event.target)) {
         if (this.visible === true) {
-          this.visible = this.close();
+          this.close();
         } else {
           this.open();
         }
       }
     },
   },
+
+  beforeDestroy() {
+    let popover = this.$refs.popover;
+    if (this.trigger === "click") {
+      popover.removeEventListener("click", this.onClick);
+    } else {
+      popover.removeEventListener("mouseenter", this.open);
+      popover.removeEventListener("mouseleave", this.close);
+    }
+  },
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped >
 .popover {
   display: inline-block;
   vertical-align: top;
   position: relative;
 }
+
 .content-wrapper {
   position: absolute;
-  border: 1px solid #333;
+  border: solid 1px #333;
   border-radius: 4px;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
-  transform: translateY(-100%);
-  margin-top: -10px;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
+  background: white;
   padding: 0.5em 1em;
+  max-width: 20em;
   word-break: break-all;
   &::before,
   &::after {
     content: "";
     display: block;
-    border: 10px solid transparent;
+    border: solid 10px transparent;
     width: 0;
     height: 0;
     position: absolute;
   }
-
   &.position-top {
     transform: translateY(-100%);
     margin-top: -10px;
@@ -176,29 +171,32 @@ export default {
     }
     &::before {
       border-top-color: black;
+      border-bottom: none;
       top: 100%;
     }
     &::after {
       border-top-color: white;
+      border-bottom: none;
       top: calc(100% - 1px);
     }
   }
   &.position-bottom {
-    margin-top: 10%;
+    margin-top: 10px;
     &::before,
     &::after {
       left: 10px;
     }
     &::before {
       border-bottom-color: black;
+      border-top: none;
       bottom: 100%;
     }
     &::after {
       border-bottom-color: white;
+      border-top: none;
       bottom: calc(100% - 1px);
     }
   }
-
   &.position-left {
     transform: translateX(-100%);
     margin-left: -10px;
@@ -218,7 +216,6 @@ export default {
       left: calc(100% - 1px);
     }
   }
-
   &.position-right {
     margin-left: 10px;
     &::before,

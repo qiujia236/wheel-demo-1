@@ -1,8 +1,7 @@
 <template>
   <div id="inputApp">
-    <h2>{{value}}</h2>
     <my-input v-model="value"></my-input>
-    <my-input></my-input>
+    <my-input placeholder="请输入用户名"></my-input>
     <my-input value="只读状态" :readonly="true"></my-input>
     <my-input value="禁止状态" :disabled="true"></my-input>
     <my-input value="错误状态" error="姓名不能少于两个字"></my-input>
@@ -14,7 +13,7 @@ export default {
   name: "inputApp",
   data() {
     return {
-      value: "双向绑定",
+      value: "双向绑定测试",
     };
   },
   methods: {

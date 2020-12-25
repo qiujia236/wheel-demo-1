@@ -1,14 +1,14 @@
 <template>
   <div>
     <my-switch
-      :value.sync="active"
+      v-model="active"
       activeColor="blue"
       inactiveColor="#2c3e50"
       name="username"
     ></my-switch>
     &nbsp;
     <my-switch
-      :value.sync="active1"
+      v-model="active1"
       activeColor="#e74c3c"
       inactiveColor="#7f8c8d"
     ></my-switch>
@@ -26,6 +26,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

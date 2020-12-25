@@ -23,14 +23,15 @@
 
 <script>
 import throttle from "lodash/throttle";
+
 export default {
   name: "my-virtualList",
   props: {
-    size: Number, //当前每一项的高度
-    remain: Number, // 可见多少个
-    items: Array,
-    preRender: Number,
-    variable: Boolean,
+    size: { type: Number, required: true }, //当前每一项的高度
+    remain: { type: Number, required: true }, // 可见多少个
+    items: { type: Array, required: true }, // 需要渲染的数据
+    preRender: { type: Number, defult: 3 },
+    variable: { type: Boolean, default: false },
   },
   data() {
     return { start: 0, end: this.remain, offset: 0, positions: [] };
@@ -157,7 +158,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .viewport {
   overflow-y: scroll;
   position: relative;

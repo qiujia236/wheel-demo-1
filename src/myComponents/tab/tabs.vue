@@ -6,6 +6,7 @@
 
 <script>
 import Vue from "vue";
+
 export default {
   name: "my-tabs",
   props: {
@@ -46,6 +47,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less" scoped>
-</style>

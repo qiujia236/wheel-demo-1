@@ -15,8 +15,11 @@
 
 
 <script>
+import icon from "../icon/icon.vue";
+
 export default {
   name: "my-directive",
+  components: { icon },
   props: {
     dir: {
       type: String,
@@ -32,7 +35,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .director {
   position: absolute;
   top: 50%;

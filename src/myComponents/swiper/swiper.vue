@@ -16,8 +16,12 @@
 </template>
 
 <script>
+import dot from "./dot.vue";
+import directive from "./directive.vue";
+
 export default {
   name: "my-swiper",
+  components: { "my-dot": dot, "my-directive": directive },
   props: {
     autoPlay: {
       type: Boolean,
@@ -106,7 +110,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .swiper {
   height: 100%;
   width: 100%;

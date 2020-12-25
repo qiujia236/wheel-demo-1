@@ -23,7 +23,7 @@ export default {
 
 <style lang="scss" scoped>
 .wb-form-item {
-  margin-bottom: 25px;
+  margin-bottom: 5px;
   .wb-form-item_label {
     text-align: right;
     vertical-align: middle;

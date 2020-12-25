@@ -5,16 +5,21 @@
     @click="$emit('click')"
   >
     <icon v-if="iconProps && !loading" :name="iconProps"></icon>
-    <icon v-if="loading" name="loading" :class="{ loading: loading }"></icon>
+    <icon v-if="loading" name="loading" :class="{ loading }"></icon>
     <div class="content">
-      <slot>提交</slot>
+      <slot></slot>
     </div>
   </button>
 </template>
 
 <script>
+import icon from "./icon/icon.vue";
+
 export default {
   name: "my-button",
+  components: {
+    icon,
+  },
   props: {
     iconProps: {},
     loading: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="wb-form">
+  <div class="wb-form" ref="wbForm">
     <slot></slot>
   </div>
 </template>
@@ -24,4 +24,11 @@ export default {
 </script>
 
 <style>
+.wb-form {
+  padding: 20px 50px 10px 0px;
+  display: inline-block;
+  border: 1px solid #cad3c8;
+  border-radius: 5px;
+  background-color: #fff;
+}
 </style>

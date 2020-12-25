@@ -13,30 +13,28 @@ import calendarApp from "./myApp/calendarApp.vue";
 import swiperApp from "./myApp/swiperApp.vue";
 import treeApp from "./myApp/treeApp.vue";
 import virtualApp from "./myApp/virtualApp.vue";
-import cascaderApp from "./myApp/cascaderApp.vue";
-import navApp from "./myApp/navApp.vue";
+import cascaderApp from "./myApp/cascaderApp";
+import menuApp from "./myApp/menuApp.vue";
 import selectorApp from "./myApp/selectorApp.vue";
 import tableAndPagerApp from "./myApp/tableAndPagerApp.vue";
-import uploadApp from "./myApp/uploadApp.vue";
+import pagerApp from "./myApp/pagerApp.vue";
 import stickyApp from "./myApp/stickyApp.vue";
 import dialogApp from "./myApp/dialogApp.vue";
+import messageApp from "./myApp/messageApp.vue";
 import switchApp from "./myApp/switchApp.vue";
 import radioApp from "./myApp/radioApp.vue";
 import checkboxApp from "./myApp/checkboxApp.vue";
 import formApp from "./myApp/formApp.vue";
 import uploaderApp from "./myApp/uploaderApp.vue";
 
-import router from "./router";
-import store from "./store";
 import myUI from "./myComponents/index.js";
-import Button from "./myComponents/button.vue";
+
+import './assets/css/reset.css'
 
 Vue.config.productionTip = false;
 
 Vue.use(myUI);
 
 new Vue({
-  router,
-  store,
-  render: (h) => h(formApp),
+  render: (h) => h(virtualApp),
 }).$mount("#app");

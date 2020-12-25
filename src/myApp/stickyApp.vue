@@ -114,7 +114,6 @@ export default {
 
 <style lang="scss" scoped>
 #stickyApp {
-  margin: 20px;
   .sticky {
     display: flex;
     justify-content: center;

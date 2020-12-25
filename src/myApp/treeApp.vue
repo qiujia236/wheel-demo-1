@@ -1,11 +1,6 @@
 <template>
   <div id="treeApp">
-    <my-tree>
-      <template v-for="item of menuData">
-        <my-treeItem v-if="!item.children" :key="item.id">{{item.title}}</my-treeItem>
-        <my-reSubMenu v-else :key="`reSubMenu${item.id}`" :data="item"></my-reSubMenu>
-      </template>
-    </my-tree>
+    <my-tree :source="menuData"></my-tree>
   </div>
 </template>
 

@@ -10,7 +10,7 @@ export default {
   inject: ["eventBus"],
   props: {
     name: {
-      type: [Number, String],
+      type: String,
       required: true,
     },
   },
@@ -30,7 +30,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .my-tabsPanel {
   padding: 0 2em;
   &.active {

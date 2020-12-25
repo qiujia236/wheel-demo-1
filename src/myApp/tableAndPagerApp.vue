@@ -1,6 +1,6 @@
 <template>
   <div id="pagerApp">
-    <div>
+    <div style="width: 500px">
       <my-table
         :columns="columns"
         :dataSource="dataSource"
@@ -24,18 +24,17 @@
         :height="300"
       />
     </div>
-    <div>
-      <my-pager :totalPage="10" :currentPage.sync="currentPage" />
-    </div>
   </div>
 </template>
 
 <script>
+import myTable from "../myComponents/table/table";
+
 export default {
   name: "pagerApp",
+  components: { "my-table": myTable },
   data() {
     return {
-      currentPage: 2,
       loading: false,
       sortRules: {
         score: "desc",

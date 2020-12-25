@@ -9,6 +9,3 @@ export default {
   name: "my-header",
 };
 </script>
-
-<style lang="less" scoped>
-</style>

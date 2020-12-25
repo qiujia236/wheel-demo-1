@@ -16,8 +16,10 @@
 </template>
 
 <script>
+import icon from "./icon/icon.vue";
 export default {
   name: "my-input",
+  components: { icon },
   props: {
     value: {
       type: String,
@@ -48,10 +50,10 @@ export default {
 @border-color-hover: #666;
 @font-size: 14px;
 @box-shadow-color: rgba(0, 0, 0, 0.5);
-@red: red;
+@red: #ea2027;
 
 .wrapper {
-  margin: 0.5em;
+  margin: 0.2em;
   vertical-align: middle;
   font-size: @font-size;
   display: inline-flex;
@@ -87,11 +89,11 @@ export default {
   }
 
   .icon-error {
-    fill: red;
+    fill: @red;
   }
 
   .error-message {
-    color: red;
+    color: @red;
   }
 }
 </style>

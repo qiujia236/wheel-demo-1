@@ -95,8 +95,11 @@
 </template>
 
 <script>
+import icon from "../icon/icon.vue";
+
 export default {
   name: "my-table",
+  components: { icon },
   props: {
     expendFileld: {
       type: String,
@@ -266,6 +269,7 @@ export default {
 <style lang="scss" scoped>
 $border-bottom-color: #95a5a6;
 .wheel-table-wrapper {
+  width: 100%;
   margin: 10px;
   .wheel-table {
     width: 100%;

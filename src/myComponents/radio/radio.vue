@@ -20,6 +20,7 @@
 <script>
 export default {
   name: "my-radio",
+
   inject: {
     RadioGroup: { default: "" },
   },
@@ -34,6 +35,7 @@ export default {
       default: "",
     },
   },
+
   computed: {
     model: {
       get() {
@@ -98,7 +100,7 @@ export default {
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%) scale(0);
-        transition: transform 0.15s ease-in;
+        transition: transform 0.3s ease-in;
       }
     }
 

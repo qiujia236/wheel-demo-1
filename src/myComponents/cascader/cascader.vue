@@ -1,132 +1,161 @@
 <template>
-  <div class="cascader">
-    <div class="trigger" @click="popoverVisible = !popoverVisible">
-      {{ result || "&nbsp;" }}
+  <div class="x-cascader">
+    <div class="selected" @click="showOptions">
+      <div class="value">{{ addr }}</div>
+      <icon
+        name="down"
+        class="x-icon"
+        :class="{ active: optionsVisible }"
+        v-show="!selected.length"
+      ></icon>
+      <icon
+        name="error"
+        class="x-icon close"
+        v-show="selected.length"
+        @click.stop="clearSelected"
+      ></icon>
     </div>
-    <div class="popover-wrapper" v-if="popoverVisible">
-      <my-cascaderItems
-        :items="source"
-        :height="popoverHeight"
+    <!-- 级联选项 -->
+    <div class="cascader-options" v-show="optionsVisible">
+      <my-cascader-item
+        :source="source"
         :selected="selected"
-        @updateSelected="onUpdateSelected"
-      />
+        @update:selected="onUpdate($event)"
+      ></my-cascader-item>
     </div>
   </div>
 </template>
 
 <script>
+import Vue from "vue";
+import icon from "../icon/icon.vue";
+import cascaderItem from "./cascaderItem.vue";
+
 export default {
   name: "my-cascader",
+  components: { icon, "my-cascader-item": cascaderItem },
   props: {
-    source: {
-      type: Array,
-    },
-    popoverHeight: {
-      type: String,
-    },
-    selected: {
-      type: Array,
-      default: () => [],
-    },
-    loadData: {
-      type: Function,
-    },
+    source: { type: Object },
+    selected: { type: Array, default: () => [] },
+  },
+
+  provide() {
+    return { eventBus: this.eventBus };
   },
 
   data() {
-    return {
-      popoverVisible: false,
-    };
+    return { optionsVisible: false, eventBus: new Vue() };
   },
 
   computed: {
-    result() {
-      return this.selected.map((item) => item.name).join("/");
+    addr() {
+      return this.selected.join(",");
     },
   },
 
+  mounted() {
+    this.eventBus.$on("close-options", this.closeOptions);
+  },
+
   methods: {
-    onUpdateSelected(newSelected) {
-      this.$emit("update:selected", newSelected);
-
-      let lastItem = newSelected[newSelected.length - 1];
-      let simplest = (children, id) => {
-        return children.filter((item) => item.id === id)[0];
-      };
-
-      let complex = (children, id) => {
-        let noChildren = [];
-        let hasChildren = [];
-
-        children.forEach((item) => {
-          if (item.children) {
-            hasChildren.push(item);
-          } else {
-            noChildren.push(item);
-          }
-        });
-
-        let found = simplest(noChildren, id);
-
-        if (found) {
-          return found;
-        } else {
-          found = simplest(hasChildren, id);
-          if (found) {
-            return found;
-          } else {
-            for (let i = 0; i < hasChildren.length; i++) {
-              found = complex(hasChildren[i].children, id);
-              if (found) {
-                return found;
-              }
-            }
-            return undefined;
-          }
-        }
-      };
-
-      let updateSource = (result) => {
-        this.loadingItem = {};
-        let copy = JSON.parse(JSON.stringify(this.source));
-        let toUpdate = complex(copy, lastItem.id);
-        toUpdate.children = result;
-        this.$emit("update:source", copy);
-      };
-
-      //   if (!lastItem.isLeaf && this.loadData) {
-      //     this.loadData(lastItem, updateSource); // 回调:把别人传给我的函数调用一下
-      //     // 调回调的时候传一个函数,这个函数理论应该被调用
-      //     this.loadingItem = lastItem;
-      //   }
+    onUpdate(obj) {
+      let copy = [...this.selected];
+      copy[obj.level] = obj.label;
+      copy = copy.slice(0, obj.level + 1);
+      this.$emit("update:selected", copy);
     },
+
+    showOptions() {
+      this.optionsVisible = !this.optionsVisible;
+    },
+
+    clearSelected() {
+      this.$emit("update:selected", []);
+      this.closeOptions();
+    },
+
+    closeOptions() {
+      this.optionsVisible = false;
+    },
+
+    listenDocument(e) {
+      if (!this.$el.contains(e.target)) {
+        this.closeOptions();
+      }
+    },
+  },
+
+  watch: {
+    optionsVisible(val) {
+      if (val) {
+        document.addEventListener("click", this.listenDocument);
+      } else {
+        document.removeEventListener("click", this.listenDocument);
+      }
+    },
+  },
+
+  beforeDestroy() {
+    this.eventBus.$off("close-options", this.closeOptions);
+    document.removeEventListener("click", this.listenDocument);
   },
 };
 </script>
 
-<style lang="scss" scoped>
-@import "../var";
-.cascader {
+<style scoped lang="scss">
+.x-cascader {
+  font-size: 15px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
   position: relative;
-  .trigger {
-    display: inline-flex;
-    align-items: center;
-    padding: 0 1em;
-    height: 32px;
-    min-width: 10em;
-    border: 1px solid $border-color;
-    border-radius: 4px;
+  border-radius: 4px;
+  color: rgba(0, 0, 0, 0.65);
+  padding: 0 10px;
+
+  > .selected {
+    cursor: pointer;
+    position: relative;
+    width: 300px;
+    > .value {
+      height: 30px;
+      line-height: 30px;
+      padding: 5px;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    > .x-icon {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%) rotateZ(-90deg);
+      transition: all 0.3s;
+      width: 12px;
+      height: 12px;
+      &.active {
+        transform: translateY(-50%) rotateZ(90deg);
+        transition: all 0.3s;
+      }
+      &.close {
+        width: 12px;
+        height: 12px;
+        &:hover {
+          fill: #e84118;
+        }
+      }
+    }
   }
 
-  .popover-wrapper {
+  > .cascader-options {
     position: absolute;
+    z-index: 10;
     top: 100%;
-    left: 0;
-    margin-top: 8px;
-    .label {
-      white-space: nowrap;
-      @include box-shadow;
-    }
+    margin-top: 10px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
   }
 }
 </style>

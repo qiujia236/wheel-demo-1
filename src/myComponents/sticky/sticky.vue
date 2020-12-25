@@ -45,6 +45,7 @@ export default {
     this.windowScrollHandler = this._windowScrollHandler.bind(this);
     window.addEventListener("scroll", this.windowScrollHandler);
   },
+
   beforeDestroy() {
     window.removeEventListener("scroll", this.windowScrollHandler);
   },
@@ -57,12 +58,14 @@ export default {
 
     _windowScrollHandler() {
       let { top } = this.offsetTop();
+
       if (window.scrollY > top) {
         let {
           height,
           left,
           width,
         } = this.$refs.wrapper.getBoundingClientRect();
+
         this.height = height + "px";
         this.left = left + "px";
         this.width = width + "px";

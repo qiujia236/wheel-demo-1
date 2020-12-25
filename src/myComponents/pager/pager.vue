@@ -1,5 +1,5 @@
 <template>
-  <div class="pager">
+  <div class="pager" v-if="!singleHide">
     <div
       class="prev-page"
       :class="{ disabled: currentPage === 1 }"
@@ -27,8 +27,11 @@
 </template>
 
 <script>
+import icon from "../icon/icon.vue";
+
 export default {
   name: "my-pager",
+  components: { icon },
   props: {
     totalPage: {
       type: Number,
@@ -38,9 +41,9 @@ export default {
       type: Number,
       required: true,
     },
-    hideIfOnePage: {
+    singleHide: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
 
@@ -54,15 +57,18 @@ export default {
           this.currentPage,
           this.currentPage - 1,
           this.currentPage - 2,
+          this.currentPage - 3,
           this.currentPage + 1,
           this.currentPage + 2,
+          this.currentPage + 3,
+          this.currentPage + 4,
         ]
           .filter((n) => n >= 1 && n <= this.totalPage)
           .sort((a, b) => a - b)
       ).reduce((prev, current, index, array) => {
         prev.push(current);
         array[index + 1] !== undefined &&
-          array[index + 1] - array[index] > 1 &&
+          array[index + 1] - array[index] > 3 &&
           prev.push("...");
         return prev;
       }, []);

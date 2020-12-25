@@ -7,16 +7,9 @@
       </span>
     </span>
     <template v-if="vertical">
-      <transition
-        @enter="enter"
-        @leave="leave"
-        @after-leave="afterLeave"
-        @after-enter="afterEnter"
-      >
-        <div class="popover" :class="{ vertical }" v-show="open">
-          <slot></slot>
-        </div>
-      </transition>
+      <div class="popover" :class="{ vertical }" v-show="open">
+        <slot></slot>
+      </div>
     </template>
     <template v-else>
       <div class="popover" v-show="open">
@@ -28,9 +21,13 @@
 
 <script>
 import ClickOutside from "../clickOutside.js";
+import icon from "../icon/icon.vue";
 
 export default {
   name: "my-subNav",
+  components: {
+    icon,
+  },
   directives: { ClickOutside },
   inject: ["root", "vertical"],
 
@@ -52,34 +49,6 @@ export default {
   },
 
   methods: {
-    enter(el, done) {
-      let { height } = el.getBoundingClientRect();
-      el.style.height = 0;
-      el.getBoundingClientRect();
-      el.style.height = `${height}px`;
-      el.addEventListener("transitionend", () => {
-        done();
-      });
-    },
-
-    afterEnter(el) {
-      el.style.height = "auto";
-    },
-
-    leave(el, done) {
-      let { height } = el.getBoundingClientRect();
-      el.style.height = `${height}px`;
-      el.getBoundingClientRect();
-      el.style.height = 0;
-      el.addEventListener("transitionend", () => {
-        done();
-      });
-    },
-
-    afterLeave(el) {
-      el.style.height = "auto";
-    },
-
     onClick() {
       this.open = !this.open;
     },

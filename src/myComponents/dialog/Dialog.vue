@@ -7,7 +7,7 @@
             <span class="wb-dialog_title">{{ title }}</span>
           </slot>
           <button class="wb-dialog-headerbtn">
-            <icon name="error" @click="handleClose" />
+            <icon name="error" @click="handleClose" class="shutdown" />
           </button>
         </div>
         <div class="wb-dialog_body">
@@ -22,8 +22,11 @@
 </template>
 
 <script>
+import icon from "../icon/icon.vue";
+
 export default {
   name: "my-dialog",
+  components: { icon },
   props: {
     title: {
       type: String,
@@ -37,15 +40,14 @@ export default {
       type: String,
       default: "15vh",
     },
-  },
-  data() {
-    return {
-      visible: true,
-    };
+    visible: {
+      type: Boolean,
+      defautl: false,
+    },
   },
   methods: {
     handleClose(e) {
-      this.visible = false;
+      this.$emit("update:visible", !this.visible);
     },
   },
 };
@@ -60,8 +62,8 @@ export default {
   left: 0;
   overflow: auto;
   margin: 0;
-  z-index: 2001;
-  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.7);
 
   .wb-dialog {
     position: relative;
@@ -74,14 +76,14 @@ export default {
 
     .wb-dialog_header {
       padding: 20px 20px 10px;
+      line-height: 24px;
+      font-size: 18px;
+      color: #303133;
       .wb-dialog_title {
-        line-height: 24px;
-        font-size: 18px;
-        color: #303133;
       }
       .wb-dialog-headerbtn {
         position: absolute;
-        top: 24px;
+        top: 25px;
         right: 20px;
         padding: 0;
         background: transparent;
@@ -89,8 +91,10 @@ export default {
         outline: none;
         cursor: pointer;
         font-size: 16px;
-        .el-icon-close {
-          color: #909399;
+        .shutdown {
+          fill: #909399;
+          width: 1.2rem;
+          height: 1.2rem;
         }
       }
     }

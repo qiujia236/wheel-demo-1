@@ -11,9 +11,9 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .item {
-  //   height: 40px;
+  height: 40px;
   padding: 10px 0;
   border: 1px solid #eeeeee;
   border-radius: 6px;

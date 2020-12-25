@@ -29,17 +29,17 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-@height: 25px;
+<style lang="scss" scoped>
+$height: 25px;
 .subMenu {
   position: relative;
 
   .title {
-    height: @height;
+    height: $height;
     text-align: center;
-    line-height: @height;
+    line-height: $height;
     color: #ffffff;
-    border: 1px solid slategrey;
+    border: 1px solid #40739e;
     border-bottom: none;
 
     .icon {
@@ -55,7 +55,7 @@ export default {
     left: 100%;
     top: 0;
     width: 100%;
-    background-color: #aaaaaa;
+    background-color: #747d8c;
   }
 }
 </style>

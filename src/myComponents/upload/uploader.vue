@@ -6,6 +6,7 @@
         class="upload-original"
         ref="uploadOriginal"
         @change="changFile"
+        :disabled="flag"
       />
       <div class="el-upload_text" @click="clickUpload">点击上传</div>
     </div>
@@ -24,25 +25,26 @@
 
     <!-- IMG -->
     <div class="uploadImg" v-if="img.length > 0">
-      <img v-for="item in img" :key="item.id" :src="item.path" class="img" />
+      <div v-for="item in img" :key="item.id" class="img">
+        <img :src="item.path" @error="error" />
+        <span v-text="item.filename" class="text" />
+      </div>
     </div>
     <!-- VIDEO -->
     <div class="uploadImg" v-show="video.length > 0">
-      <video
-        v-for="item in video"
-        :key="item.id"
-        :src="item.path"
-        controls
-        class="img"
-      />
+      <div v-for="item in video" :key="item.id" class="img">
+        <video :src="item.path" controls />
+        <span v-text="item.filename" class="text" />
+      </div>
     </div>
     <!-- other -->
     <div class="uploadImg" v-show="otherFile.length > 0">
-      <div
+      <span
+        class="text"
         v-for="item in otherFile"
         :key="item.id"
-        class="img"
-        v-text="item.path"
+        v-text="item.filename"
+        :path="item.path"
       />
     </div>
   </div>
@@ -56,6 +58,16 @@ import qs from "qs";
 
 export default {
   name: "my-uploader",
+  props: {
+    size: {
+      type: Number,
+      default: 4 * 1024 * 1024,
+    },
+    bufferCount: {
+      type: Number,
+      default: 50,
+    },
+  },
   data() {
     return {
       total: 0,
@@ -66,6 +78,7 @@ export default {
       img: [],
       otherFile: [],
       filename: "",
+      flag: false,
     };
   },
 
@@ -80,7 +93,14 @@ export default {
   },
 
   methods: {
+    error(e) {
+      e.target.style.display = "none";
+    },
     clickUpload(e) {
+      if (this.flag === true) {
+        alert("正在上传文件，请稍后尝试");
+        return;
+      }
       e.preventDefault();
       const uploadOriginal = this.$refs.uploadOriginal;
       uploadOriginal.click();
@@ -91,14 +111,16 @@ export default {
       const file = uploadOriginal.files[0];
       const { name, size } = file;
 
-      if (size < 2 * 1024 * 1024) {
+      if (size < this.size) {
         this.smallFile = true;
         this.filename = name;
+        this.flag = true;
         await this.changeFileAsBase64(file);
         return false;
       } else {
         this.bigFile = true;
         this.filename = name;
+        this.flag = true;
         await this.changeFileAsBuffer(file);
         return false;
       }
@@ -131,12 +153,25 @@ export default {
       if (result.code == 0) {
         let suffix = /\.([0-9a-zA-Z]+)$/.exec(result.path)[1];
         if (/(png|gif|jpeg|jpg)/i.test(suffix)) {
-          this.img.push({ id: Math.random(10), path: result.path });
+          this.img.push({
+            id: Math.random(10),
+            filename: this.filename + "上传成功",
+            path: result.path,
+          });
         } else if (/(mp4|avi)/i.test(suffix)) {
-          this.img.push({ id: Math.random(10), path: result.path });
+          this.video.push({
+            id: Math.random(10),
+            filename: this.filename + "上传成功",
+            path: result.path,
+          });
         } else {
-          this.otherFile.push({ id: Math.random(10), path: result.path });
+          this.otherFile.push({
+            id: Math.random(10),
+            filename: this.filename + "上传成功",
+            path: result.path,
+          });
         }
+        this.flag = false;
         this.smallFile = false;
         return false;
       }
@@ -224,10 +259,15 @@ export default {
           if (/(png|gif|jpeg|jpg)/i.test(suffix)) {
             this.img.push({ id: Math.random(10), path: result.path });
           } else if (/(mp4|avi)/i.test(suffix)) {
-            this.img.push({ id: Math.random(10), path: result.path });
+            this.video.push({ id: Math.random(10), path: result.path });
           } else {
-            this.otherFile.push({ id: Math.random(10), path: result.path });
+            this.otherFile.push({
+              id: Math.random(10),
+              filename: this.filename + "上传成功",
+              path: result.path,
+            });
           }
+          this.flag = false;
           this.bigFile = false;
           return false;
         }
@@ -241,7 +281,7 @@ export default {
           complete();
           return;
         }
-        requeawaitstList[i]();
+        await requestList[i]();
         i++;
         send();
       };
@@ -267,8 +307,9 @@ export default {
 
 <style lang="scss" scoped>
 .upload {
-  position: relative;
   .handle {
+    position: relative;
+    width: 420px;
     .upload-original {
       position: absolute;
       left: 0;
@@ -283,7 +324,7 @@ export default {
       background: #efeeee;
       color: #333;
       border: 0;
-      width: 100px;
+      width: 120px;
       text-align: center;
       padding: 10px;
       border-radius: 5px;
@@ -301,12 +342,37 @@ export default {
 
   .uploadImg {
     margin-top: 5px;
+    margin-bottom: 5px;
+    width: 420px;
+
     .img {
       display: inline-block;
-      margin: 4px;
-      padding: 2px;
-      border: 2px dashed #efeeee;
+      margin: 2px;
       border-radius: 4px;
+      width: 200px;
+
+      .text {
+        padding: 2px;
+        width: 100%;
+        height: 26px;
+        line-height: 18px;
+        font-size: 16px;
+        border: 2px dashed #efeeee;
+      }
+    }
+
+    .text {
+      display: inline-block;
+      width: 200px;
+      height: 26px;
+      line-height: 18px;
+      font-size: 16px;
+      padding: 2px;
+      margin: 2px;
+      border: 2px dashed #efeeee;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }

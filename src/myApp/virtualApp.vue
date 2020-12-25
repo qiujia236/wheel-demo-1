@@ -2,8 +2,8 @@
   <div id="virtualApp">
     <!-- variable表示高度未知 -->
     <my-virtualList
-      :size="60"
-      :remain="8"
+      :size="40"
+      :remain="10"
       :items="items"
       :preRender="4"
       :variable="true"
@@ -14,10 +14,12 @@
 </template>
 
 <script>
+// Mock.Random.sentence(5, 50)
 import Mock from "mockjs";
+
 let items = [];
-for (let i = 0; i < 100; i++) {
-  items.push({ id: i, value: Mock.Random.sentence(5, 50) });
+for (let i = 0; i < 120; i++) {
+  items.push({ id: i, value: `item-${i}` });
 }
 
 export default {
@@ -28,7 +30,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 #virtualApp {
   margin: 20px;
 }

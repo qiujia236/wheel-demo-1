@@ -1,6 +1,5 @@
 <template>
   <div id="tabApp">
-    <!-- <my-tabs :selected="selectedTab" v-bind:update:selected="selectedTab=$event"> -->
     <my-tabs :selected.sync="selectedTab" direction="horizontal">
       <my-tabsHead>
         <my-tabsItem name="test1">
@@ -21,8 +20,23 @@
 </template>
 
 <script>
+import tabs from "../myComponents/tab/tabs.vue";
+import tabsHead from "../myComponents/tab/tabsHead.vue";
+import tabsItem from "../myComponents/tab/tabsItem.vue";
+import tabsBody from "../myComponents/tab/tabsBody.vue";
+import tabsPanel from "../myComponents/tab/tabsPanel.vue";
+import icon from "../myComponents/icon/icon.vue";
+
 export default {
   name: "tabApp",
+  components: {
+    icon,
+    "my-tabs": tabs,
+    "my-tabsHead": tabsHead,
+    "my-tabsItem": tabsItem,
+    "my-tabsBody": tabsBody,
+    "my-tabsPanel": tabsPanel,
+  },
   data() {
     return {
       selectedTab: "test3",
@@ -31,7 +45,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 #tabApp {
   margin: 20px;
 }

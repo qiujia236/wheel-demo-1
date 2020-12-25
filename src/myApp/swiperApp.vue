@@ -9,22 +9,26 @@
       dotBgColor="#000"
     >
       <my-swiperItem v-for="item in 3" :key="item">
-        <div :class="`content${item}`">content{{item}}</div>
+        <div :class="`content${item}`">content{{ item }}</div>
       </my-swiperItem>
     </my-swiper>
   </div>
 </template>
 
 <script>
+import swiper from "../myComponents/swiper/swiper.vue";
+import swiperItem from "../myComponents/swiper/swiperItem.vue";
+
 export default {
   name: "swiperApp",
+  components: { "my-swiper": swiper, "my-swiperItem": swiperItem },
   data() {
     return {};
   },
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 #swiperApp {
   margin: 20px;
   width: 520px;

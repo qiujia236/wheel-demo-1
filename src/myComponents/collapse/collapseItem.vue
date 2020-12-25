@@ -1,9 +1,11 @@
 <template>
   <div class="collapseItem">
-    <div class="title" @click="toggle">{{title}}</div>
-    <div class="content" v-if="open">
-      <slot></slot>
-    </div>
+    <div class="title" @click="toggle">{{ title }}</div>
+    <transition name="collapse-fade">
+      <div class="content" v-show="open">
+        <slot></slot>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -48,7 +50,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .collapseItem {
   .title {
     border: 1px solid #ddd;
@@ -78,7 +80,24 @@ export default {
     display: flex;
     align-items: center;
     border: 1px solid #ddd;
-    background: red;
+    background: #eee;
+    transition: all;
+  }
+
+  .collapse-fade-enter-active {
+    animation: fade 0.5s;
+  }
+  .collapse-fade-leave-active {
+    animation: fade 0.2s reverse;
+  }
+
+  @keyframes fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 }
 </style>

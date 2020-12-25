@@ -5,13 +5,19 @@
       <my-collapseItem title="标题2" name="2">内容2</my-collapseItem>
       <my-collapseItem title="标题3" name="3">内容3</my-collapseItem>
     </my-collapse>
-    {{selectedTab}}
   </div>
 </template>
 
 <script>
+import collapse from "../myComponents/collapse/collapse.vue";
+import collapseItem from "../myComponents/collapse/collapseItem.vue";
+
 export default {
   name: "collapseApp",
+  components: {
+    "my-collapse": collapse,
+    "my-collapseItem": collapseItem,
+  },
   data() {
     return { selectedTab: ["2"] };
   },

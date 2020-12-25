@@ -4,8 +4,10 @@
       <a
         href="javascript:;"
         class="dot-lk"
-        :style="{backgroundColor:(item-1)===currentIndex?dotBgColor:'#fff'}"
-        @click="dotClick(item-1)"
+        :style="{
+          backgroundColor: item - 1 === currentIndex ? dotBgColor : '#fff',
+        }"
+        @click="dotClick(item - 1)"
       ></a>
     </div>
   </div>
@@ -17,7 +19,7 @@ export default {
   props: {
     hasDot: { type: Boolean, default: true },
     currentIndex: { type: Number, default: true },
-    dotBgColor: { type: String, default: "#ff5000" },
+    dotBgColor: { type: String, default: "#30336b" },
     itemLen: { type: Number, reqired: true },
   },
 
@@ -29,22 +31,19 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .dot {
   width: 70px;
-  height: 13px;
+  height: 15px;
   border-radius: 10px;
   position: absolute;
   bottom: 15px;
   text-align: center;
   font-size: 0;
-  //   display: inline-flex;
-  //   align-items: center;
-  //   justify-content: center;
   left: 50%;
   z-index: 1;
   margin-left: -39px;
-  background-color: purple;
+  background-color: #eb4d4b;
 
   .dot-item {
     display: inline-block;

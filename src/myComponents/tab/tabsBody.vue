@@ -10,6 +10,3 @@ export default {
   inject: ["eventBus"],
 };
 </script>
-
-<style lang="less" scoped>
-</style>

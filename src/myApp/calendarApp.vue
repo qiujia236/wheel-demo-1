@@ -1,6 +1,6 @@
 <template>
   <div id="calendarApp">
-    <my-dataPicker v-model="now"></my-dataPicker>123
+    <my-dataPicker v-model="now"></my-dataPicker>
   </div>
 </template>
 

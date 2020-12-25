@@ -3,29 +3,37 @@
     <input type="text" :value="formtDate" />
     <div v-if="isVisible" class="panel">
       <div class="pannel-nav">
-        <span>&lt;</span>
         <span @click="prevMonth">&lt;&lt;</span>
-        <span>{{time.year}}年</span>
-        <span>{{time.month+1}}月</span>
+        <span>{{ time.year }}年</span>
+        <span>{{ time.month + 1 }}月</span>
         <span @click="nextMonth">&gt;&gt;</span>
-        <span>&gt;</span>
       </div>
       <div class="pannel-content">
         <div class="days">
-          <span v-for="j in 7" :key="`j`+j" class="cell">{{weekDays[j-1]}}</span>
+          <span v-for="j in 7" :key="`j` + j" class="cell">{{
+            weekDays[j - 1]
+          }}</span>
           <div v-for="i in 6" :key="i">
             <span
               class="cell cell-days"
               @click="chooseDate(visibleDays[(i - 1) * 7 + (j - 1)])"
-              :class="[{ notCurrentMonth:  !isCurrentMonth(visibleDays[(i - 1) * 7 + (j - 1)] )},
-              {today:isToday(visibleDays[(i - 1) * 7 + (j - 1)])},{select:isSelect(visibleDays[(i - 1) * 7 + (j - 1)])}]"
+              :class="[
+                {
+                  notCurrentMonth: !isCurrentMonth(
+                    visibleDays[(i - 1) * 7 + (j - 1)]
+                  ),
+                },
+                { today: isToday(visibleDays[(i - 1) * 7 + (j - 1)]) },
+                { select: isSelect(visibleDays[(i - 1) * 7 + (j - 1)]) },
+              ]"
               v-for="j in 7"
               :key="j"
-            >{{ visibleDays[(i - 1) * 7 + (j - 1)].getDate() }}</span>
+              >{{ visibleDays[(i - 1) * 7 + (j - 1)].getDate() }}</span
+            >
           </div>
         </div>
       </div>
-      <div class="pannel-footer">今天</div>
+      <!-- <div class="pannel-footer">{{ value }}</div> -->
     </div>
   </div>
 </template>
@@ -67,6 +75,7 @@ export default {
       default: () => new Date(),
     },
   },
+
   data() {
     let { year, month } = this.getFormtDate(this.value);
     return {
@@ -168,19 +177,41 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .wrapper {
   position: relative;
+  width: 32px;
+  > input {
+    height: 32px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    padding: 0 8px;
+    &:hover {
+      border-color: #666;
+    }
+    &:focus {
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+      outline: none;
+    }
+    &:disabled,
+    &:read-only {
+      border-color: #ccc;
+      color: #ccc;
+      cursor: not-allowed;
+    }
+  }
 }
 .panel {
   width: 32 * 7px;
+  top: 33px;
   position: absolute;
   background-color: #fff;
   box-shadow: 2px 2px 2px pink, -2px -2px 2px pink;
+  z-index: 999;
 
   .pannel-nav {
     height: 30px;
-    background-color: rgb(185, 183, 183);
+    background-color: #bdc3c7;
     display: flex;
     justify-content: space-around;
     span {
@@ -190,7 +221,7 @@ export default {
     }
   }
   .pannel-content {
-    background-color: #ddd;
+    background-color: #ecf0f1;
     .cell {
       display: inline-flex;
       justify-content: center;
@@ -201,7 +232,8 @@ export default {
     }
     .cell-days:hover,
     .select {
-      background-color: royalblue;
+      background-color: #3498db;
+      border-radius: 4px;
     }
 
     .notCurrentMonth {
@@ -209,13 +241,13 @@ export default {
     }
 
     .today {
-      background-color: red;
+      background-color: #e74c3c;
       color: #fff;
       border-radius: 4px;
     }
   }
   .pannel-footer {
-    background-color: rgb(153, 152, 152);
+    background-color: #bdc3c7;
     height: 30px;
   }
 }

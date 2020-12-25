@@ -2,7 +2,7 @@
   <transition name="fade">
     <div class="sider" v-if="visible">
       <slot></slot>
-      <button class="button" @click="visible=false">button</button>
+      <button class="button" @click="click">button</button>
     </div>
   </transition>
 </template>
@@ -10,16 +10,22 @@
 <script>
 export default {
   name: "my-sider",
-  data() {
-    return {
-      visible: true,
-    };
+  props: {
+    visible: {
+      type: Boolean,
+      default: true,
+    },
   },
-  methods: {},
+  methods: {
+    click() {
+      console.log(!this.visible);
+      this.$emit("update:visible", !this.visible);
+    },
+  },
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .button {
   background-color: inherit;
 }

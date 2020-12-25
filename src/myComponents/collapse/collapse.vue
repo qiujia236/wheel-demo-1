@@ -6,6 +6,7 @@
 
 <script>
 import Vue from "vue";
+
 export default {
   name: "my-collapse",
   props: {
@@ -49,10 +50,15 @@ export default {
       this.$emit("update:selected", selectedCopy);
     });
   },
+  beforeDestroy() {
+    this.eventBus.$off("update:selected");
+    this.eventBus.$off("update:addSelected");
+    this.eventBus.$off("update:removeSelected");
+  },
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .collapse {
   border-radius: 4px;
   border-bottom: none;

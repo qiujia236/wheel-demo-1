@@ -5,6 +5,7 @@
 <script>
 import plugin from "../myComponents/plugin.js";
 import Vue from "vue";
+
 Vue.use(plugin);
 export default {
   name: "toastApp",

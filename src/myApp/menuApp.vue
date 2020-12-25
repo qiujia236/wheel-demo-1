@@ -19,8 +19,17 @@
 </template>
 
 <script>
+import nav from "../myComponents/menu/nav.vue";
+import subNav from "../myComponents/menu/subNav.vue";
+import navItem from "../myComponents/menu/navItem.vue";
+
 export default {
-  name: "navApp",
+  name: "menuApp",
+  components: {
+    "my-nav": nav,
+    "my-subNav": subNav,
+    "my-navItem": navItem,
+  },
   data() {
     return {
       selected: ["hire"],

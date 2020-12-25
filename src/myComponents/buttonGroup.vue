@@ -28,13 +28,13 @@ export default {
     margin-right: -1px;
 
     &:first-child {
-      border-top-left-radius: var(--boreder-radius);
-      border-bottom-left-radius: var(--boreder-radius);
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
       margin-left: 0;
     }
     &:last-child {
-      border-top-right-radius: var(--boreder-radius);
-      border-bottom-right-radius: var(--boreder-radius);
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
     }
     &:hover {
       position: relative;
